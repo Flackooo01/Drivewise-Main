@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 
         if ( md5($Password, $row['Password']) ) {
 
-            $index['Id'] = $row['Id'];
+            $index['ID'] = $row['ID'];
             $index['Fullname'] = $row['Fullname'];
             $index['Email'] = $row['Email'];
             $index['Username'] = $row['Username'];

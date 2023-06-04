@@ -8,9 +8,9 @@
  
  //database constants
  define('DB_HOST', 'localhost');
- define('DB_USER', 'u481604282_dwise');
- define('DB_PASS', 'eRlPN[8Z>8vF');
- define('DB_NAME', 'u481604282_drivewise');
+ define('DB_USER', 'root');
+ define('DB_PASS', '');
+ define('DB_NAME', 'testing');
  
  //connecting to database and getting the connection object
  $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -22,7 +22,7 @@
  }
  
  //creating a query
- $stmt = $conn->prepare("SELECT Report_ID, Vehicle_Plate_No, Vehicle_Violation, Report_Image, Status, Date_Report FROM lto_report;");
+ $stmt = $conn->prepare("SELECT ID, Vehicle_Plate_No, Vehicle_Violation, Report_Image, Status, Date_Report FROM lto_report;");
  
  //executing the query 
  $stmt->execute();
