@@ -76,6 +76,7 @@ switch ($view) {
     $content    = 'home.php';
 }
 
+
 require_once("main.php");
 
 ?>

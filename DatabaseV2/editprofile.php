@@ -1,26 +1,25 @@
 <?php
-    require_once 'config.php';
+require_once 'config.php';
 
-$UserId = $_POST['Id'];
-$Email = $_POST['Email'];
+
+$ID = $_POST['ID'];
 $Username = $_POST['Username'];
-$Password = $_POST['Password'];
-$Confirm_Password = $_POST['Confirm_Password'];
+$Password = md5($_POST['Password']);
+$Confirm_Password = md5($_POST['Confirm_Password']);
 
-$sql = "UPDATE `lto_userlist` SET `Id`='$Id',`Email`='$Email',`Username`='$Username',`Password`='$Password',`Confirm_Password`='$Confirm_Password' WHERE Id = $Id";
-$result = mysqli_query($con, $sql);
 
-if($result){
-    echo "Data Updated";
+$sql = "SELECT * FROM lto_userlist WHERE ID = '$ID'";
+$res = mysqli_query($con,$sql);
+
+if(mysqli_num_rows($res) > 0){
+    $result = "UPDATE lto_userlist SET Username = '$Username', Password = '$Password', Confirm_Password = '$Confirm_Password' WHERE ID =  '$ID'";
+    if(mysqli_query($con,$result)){
+        echo "Profile Update Successfully ";
+    }else{
+        echo "Failed To Update";
+    }
 }else{
-    echo "Error Update";
+    echo "UnAuthorize User ";
 }
-
-
-
-
-
-
-
 
 ?>

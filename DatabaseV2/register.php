@@ -1,5 +1,13 @@
 <?php
 require_once 'config.php';
+
+if(isset($_SESSION['login_id'])){
+	$qry = $con->query("SELECT * from lto_userlist where ID = {$_SESSION['login_id']} ");
+	foreach($qry->fetch_array() as $k => $v){
+		$$k = $v;
+	}
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (!empty($_POST['Fullname']) && ($_POST['Email']) && ($_POST['Username']) && ($_POST['Password']) && ($_POST['Confirm_Password'])) {
 
@@ -38,4 +46,5 @@ if (!empty($_POST['Fullname']) && ($_POST['Email']) && ($_POST['Username']) && (
         echo "all fields are required";
     }
 }
+
 ?>
