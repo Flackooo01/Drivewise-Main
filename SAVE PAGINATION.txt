@@ -1,0 +1,50 @@
+<?php 
+                        // define how many results you want per page
+                        $results_per_page = 10;
+
+                        // find out the number of results stored in database
+                        $sql1='SELECT * FROM research';
+                        $mydb->setQuery($sql1);
+                        $row = $mydb->executeQuery();
+                        $number_of_results = $mydb->num_rows($row);
+
+                        // determine number of total pages available
+                        $number_of_pages = ceil($number_of_results/$results_per_page);
+
+                        // determine which page number visitor is currently on
+                        if (!isset($_GET['page'])) {
+                            $page = 1;
+                        } else {
+                            $page = $_GET['page'];
+                        }
+                        
+                        // determine the sql LIMIT starting number for the results on the displaying page
+                        $this_page_first_result = ($page-1)*$results_per_page;
+
+
+                        $i = 1;
+                        $sql = "SELECT a.ResearchID,Concat('REF ', LPAD(a.ResearchID,10,0)) as Reference, 
+                        a.Research,a.Tags,a.Location,a.Abstract,
+                        SUBSTRING(a.Tags,1,CHAR_LENGTH(a.Tags) - 2) as newTags
+                        FROM `research` a LIMIT  " . $this_page_first_result . "," .  $results_per_page;
+                        $mydb->setQuery($sql);
+                        $cur = $mydb->loadResultList();
+                        foreach ($cur as $result) {
+                            ?>
+                            <tr>
+                            <td>
+                            <a href="index.php?q=researchabstract&id=<?php echo $result->ResearchID ?>">
+                            <h5><?php echo strtoupper($result->Research) ?></h5>
+                            </a>
+                            <?php echo $result->Abstract ?>
+                            <?php echo $valueToSearch ?>
+                            <hr>
+                            <?php echo 'Tags: ('. $result->newTags . ')' ?>
+                            </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+
+        JOIN myread b on b.ResearchID=a.ResearchID
+        JOIN user_access c on c.UserID=b.UserID

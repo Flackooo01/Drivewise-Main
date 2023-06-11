@@ -1,7 +1,4 @@
-<?php
-require_once("include/initialize.php");
-include("DatabaseV2/config.php");
-?>
+
 
 <div class="container">
 	<h4 class="mt-3"><span class="bi-list"></span> <?php echo $title;?></h4>
@@ -70,57 +67,34 @@ include("DatabaseV2/config.php");
             <div class="modal-content-full-width modal-content">
                 <!--Header-->
                 <div class="modal-header"
-                    style="background-color: #2c3333; ">
-                    <h4 class="modal-title w-100" id="myModalLabel" style="color:white">List of User Reports</h4>
+                    style="background-color: #A8A8A8; border-bottom-width: thick; border-color: #f0ad4e;">
+                    <h4 class="modal-title w-100" id="myModalLabel" style="color:black">List of G/L Accounts</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <!--Body-->
                 <div class="modal-body">
-                    <table class="table table-striped table-bordered table-hover" id="tblUser" style="width:100%">
-                        <thead class="table-dark">
+                    <table class="table table-striped table-bordered table-hover" id="tblGL" style="width:100%">
+                        <thead>
                             <tr>
-                                
-                                <th>Violation</th>
-                                <th>Vehicle Plate No</th>
-								<th>Date and Time</th>
-								<th>Status</th>
+                                <th>#</th>
+                                <th>Account Number</th>
+                                <th>Account Name</th>
+                                <th>Account Balance</th>
+
                             </tr>
                         </thead>
                         <tbody>
-							<?php
-			        $status = array("","PENDING","ONGOING","SOLVED");
-					$qry = $con->query("SELECT * FROM lto_report order by unix_timestamp(Date_Report) desc ");
-					while($row = $qry->fetch_array()):
-					?>
-					<tr class="<?php echo $row['Status'] == 1 ?  : '' ?>">
-						<td><?php echo $row['Vehicle_Violation'] ?></td>
-						<td><?php echo $row['Vehicle_Plate_No'] ?></td>
-						<td><?php echo date('M d, Y h:i A',strtotime($row['Date_Report'])) ?></td>
-						<td><?php echo $row['Status'] ?></td>
-					</tr>
-					<?php endwhile; ?>
-
-							
                         </tbody>
                     </table>
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #2c3333;">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
             <!--/.Content-->
         </div>
     </div>
     <!-- GL Modal -->
-
-
-	<script>
-    $(document).ready(function() 
-	{
-        $('#tblUser').dataTable();
-		$('div.dataTables_filter input').focus();
-	});
-    </script>					
